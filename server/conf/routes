@@ -7,3 +7,8 @@ GET     /                           controllers.Application.main
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+POST    /api/games                  controllers.Games.addGame
+GET     /api/games                  controllers.Games.getGames(player: String)
+GET     /api/games/pending          controllers.Games.getPendingGames(player: String)
+PUT     /api/games/confirm          controllers.Games.confirmGame(uuid: String, confirmed: Boolean)

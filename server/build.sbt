@@ -10,8 +10,15 @@ libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
+  "org.reactivemongo" %% "play2-reactivemongo" % "0.11.10",
   specs2 % Test
 )
+
+routesGenerator := InjectedRoutesGenerator
+
+resolvers += "jcenter" at "http://jcenter.bintray.com"
+
+libraryDependencies += "sglicko2" %% "sglicko2" % "1.3"
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 
