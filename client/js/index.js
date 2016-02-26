@@ -4,6 +4,8 @@ import { Router } from 'abyssa';
 import { api as router } from 'abyssa';
 import ReactState from 'abyssa/lib/ReactState';
 
+import { checkCookie } from './util/cookie';
+
 import layout from './layout';
 import Login from './login';
 import Sports from './sports';
@@ -14,7 +16,9 @@ const State = ReactState(document.getElementById('reactApp'));
 
 
 if (!location.hash || location.hash === '#/') {
-  location.hash = '#/login';
+  checkCookie('username')
+    .then(res => location.hash = '#/sports')
+    .catch(err => location.hash = '#/login')
 }
 
 Router({

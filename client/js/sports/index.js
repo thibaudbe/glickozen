@@ -3,9 +3,15 @@ import { api as router } from 'abyssa';
 import connect from 'fluxx/lib/ReactConnector';
 
 import store, { incrementBy } from '../store';
+import { checkCookie } from '../util/cookie';
 
 
-class Sports extends React.Component {
+const Sports = React.createClass({
+
+  componentWillMount() {
+    checkCookie('username')
+      .catch(res => router.transitionTo('app.login'))
+  },
 
   render() {
     const { count, params: { id } } = this.props;
@@ -22,7 +28,7 @@ class Sports extends React.Component {
     );
   }
 
-}
+});
 
 function incrementBy10() { incrementBy(10) }
 
