@@ -19,11 +19,11 @@ if (indexGamesUuid.ok === 1) {
 }
 
 
-var indexRatingsPlayer = db.ratings.createIndex({player: 1}, {unique: true})
+var indexRatingsPlayer = db.ratings.createIndex({sport: 1, player: 1}, {unique: true})
 
 if (indexRatingsPlayer.ok === 1) {
-  print("[+] Ratings: Successfully created Index for (player)")
+  print("[+] Ratings: Successfully created Index for (sport, player)")
   print("=> Index count: " + indexRatingsPlayer.numIndexesAfter + ", was: " + indexRatingsPlayer.numIndexesBefore)
 } else {
-  print("[-] Ratings: Failed creating Index for (player)")
+  print("[-] Ratings: Failed creating Index for (sport, player)")
 }

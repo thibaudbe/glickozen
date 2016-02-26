@@ -94,8 +94,8 @@ class Games @Inject() (val reactiveMongoApi: ReactiveMongoApi)
         game <- {
           gameOpt.map(Future.successful(_)).getOrElse(Future.failed(new Exception(s"Game ${uuid} not found")))
         }
-        allRatings <- ratingsCollection.find(Json.obj()).cursor[Ratings]().collect[Seq]()
-        newRatings <- Future.successful(Ratings.updateRatings(game, allRatings))
+        allSportRatings <- ratingsCollection.find(Json.obj("sport" -> game.sport)).cursor[Ratings]().collect[Seq]()
+        newRatings <- Future.successful(Ratings.updateRatings(game, allSportRatings))
         _ <- {
           val updateResultsSeq = newRatings.map { ratings =>
             ratingsCollection.update(
@@ -117,8 +117,8 @@ class Games @Inject() (val reactiveMongoApi: ReactiveMongoApi)
     }
   }
 
-  def getRankedPlayers = Action.async {
-    val rankedRatings = ratingsCollection.find(Json.obj())
+  def getRankedPlayers(sport: String) = Action.async {
+    val rankedRatings = ratingsCollection.find(Json.obj("sport" -> sport))
       .sort(Json.obj("rating" -> -1))
       .cursor[Ratings]()
       .collect[Seq]()
