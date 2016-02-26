@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { api as router } from 'abyssa';
-import { checkCookie } from '../util/cookie';
+import { checkCookie, getCookie } from '../util/cookie';
+import { post } from '../util/ajax';
 
 
 export default React.createClass({
@@ -13,28 +15,42 @@ export default React.createClass({
   render() {
     return (
       <div className="party">
-        <form onSubmit={ this.onSubmit }>
-          <div className="field">
-            <label htmlFor="opponent">Opponent</label>
-            <input type="text" name="opponent" />
-          </div>
-          <div className="field">
-            <label htmlFor="date">Date</label>
-            <input type="date" name="date" />
-          </div>
-          <div className="field">
-            <button type="submit" name="playerScore" data-value="1">Win</button>
-            <button type="submit" name="playerScore" data-value="0">Lose</button>
-            <button type="submit" name="playerScore" data-value="0.5">Draw</button>
-          </div>
-        </form> 
+        <div className="field">
+          <label htmlFor="opponent">Opponent</label>
+          <input ref="opponent" type="text" name="opponent" />
+        </div>
+        <div className="field">
+          <label htmlFor="date">Date</label>
+          <input ref="date" type="date" name="date" />
+        </div>
+        <div className="field">
+          <button ref="win" type="submit" onClick={ this.onSubmit } data-value="1">Win</button>
+          <button ref="lose" type="submit" onClick={ this.onSubmit } data-value="0">Lose</button>
+          <button ref="draw" type="submit" onClick={ this.onSubmit } data-value="0.5">Draw</button>
+        </div>
       </div> 
     );
   },
 
   onSubmit(e) {
     e.preventDefault();
-    console.log('create party');
+    const opponent = ReactDOM.findDOMNode(this.refs.opponent).value;
+    const date = ReactDOM.findDOMNode(this.refs.date).value;
+
+    var d = new Date();
+    var today = d.getTime();
+
+    const data = {
+      opponent, 
+      date: 1456502889847,
+      player: getCookie('username'),
+      playerScore: e.target.getAttribute('data-value'),
+      confirmed: false
+    }
+
+    return post('/api/games', data)
+      .then(res => route.transition('app.sports'));
+
   }
 
 });

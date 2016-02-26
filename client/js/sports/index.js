@@ -17,7 +17,7 @@ const Sports = React.createClass({
     const { count, params: { id } } = this.props;
 
     return (
-      <div>
+      <div className="sports">
         <h1>hello world</h1>
         <p>
           <button type="button" onClick={ incrementBy10 }>Increment:</button>

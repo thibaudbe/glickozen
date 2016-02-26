@@ -1,7 +1,8 @@
 import React from 'react';
 import { api as router } from 'abyssa';
 
-import { checkCookie } from '../util/cookie';
+import { checkCookie, getCookie } from '../util/cookie';
+import { get } from '../util/ajax';
 
 
 export default React.createClass({
@@ -9,6 +10,10 @@ export default React.createClass({
   componentWillMount() {
     checkCookie('username')
       .catch(res => router.transitionTo('app.login'))
+
+    get(`/api/games/pending?player=${getCookie('username')}`)
+      .then(res => console.log('res', res))
+
   },
 
   render() {
