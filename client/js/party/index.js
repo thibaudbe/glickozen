@@ -44,8 +44,9 @@ export default React.createClass({
       opponent, 
       date: 1456502889847,
       player: getCookie('username'),
-      playerScore: e.target.getAttribute('data-value'),
-      confirmed: false
+      playerScore: parseInt(e.target.getAttribute('data-value')),
+      confirmed: false,
+      sport: 'pingpong'
     }
 
     return post('/api/games', data)
