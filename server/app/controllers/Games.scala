@@ -59,7 +59,12 @@ class Games @Inject() (val reactiveMongoApi: ReactiveMongoApi)
   }
 
   def getPendingGames(player: String) = Action.async {
-    val games = Game.getPendingGames(player, gamesCollection)
+    val games = gamesCollection.find(
+      Json.obj(
+        "opponent" -> player,
+        "confirmed" -> false
+      )
+    ).cursor[Game]().collect[Seq]()
 
     games.map { games =>
       Ok(Json.toJson(games))
