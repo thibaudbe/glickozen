@@ -1,0 +1,41 @@
+{
+  "name": "glickozen",
+  "main": "js/index.js",
+  "scripts": {
+    "postinstall": "npm run build",
+    "build": "npm run build-js & npm run build-css",
+    "build-js": "browserify js/index.js | uglifyjs -cm > ../server/public/js/bundle.js",
+    "build-css": "stylus -c stylus/main.styl -o ../server/public/css/main.css",
+    "start": "npm run watch-js & npm run watch-css & npm run server",
+    "watch-js": "watchify --debug js/index.js -d -o ../server/public/js/bundle.js -v",
+    "watch-css": "stylus --sourcemap-inline -w stylus/main.styl -o ../server/public/css/",
+    "server": "browser-sync start --proxy localhost:9000 --files '../server/public/css/*.css, ../server/public/js/*.js'"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify", { 
+          "presets": ["es2015", "react"] 
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "6.5.0",
+    "babel-preset-react": "6.5.0",
+    "babelify": "7.2.0",
+    "browser-sync": "2.11.1",
+    "browserify": "13.0.0",
+    "immupdate": "0.2.0",
+    "reactify": "1.1.1",
+    "stylus": "0.53.0",
+    "uglifyify": "3.0.1",
+    "watchify": "3.7.0"
+  },
+  "dependencies": {
+    "abyssa": "7.2.5",
+    "fluxx": "0.13.0",
+    "react": "0.14.7",
+    "react-dom": "0.14.7"
+  }
+}
