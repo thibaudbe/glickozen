@@ -3,7 +3,7 @@ package controllers
 import java.util.UUID
 import javax.inject.Inject
 
-import models.Game
+import models.{Ratings, Game}
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc._
 import play.modules.reactivemongo._
@@ -21,6 +21,7 @@ class Games @Inject() (val reactiveMongoApi: ReactiveMongoApi)
   val logger = play.api.Logger("controllers.games")
 
   val gamesCollection: JSONCollection = db.collection[JSONCollection]("games")
+  val ratingsCollection: JSONCollection = db.collection[JSONCollection]("ratings")
 
   def addGame = Action.async(parse.json) { request =>
 
@@ -71,20 +72,59 @@ class Games @Inject() (val reactiveMongoApi: ReactiveMongoApi)
     }
   }
 
-  def confirmGame(uuid:String, confirmed: Boolean) = Action.async {
+  def confirmGame = Action.async(parse.json) { request =>
+    val uuid = (request.body \ "uuid").as[String]
+    val confirmed = (request.body \ "confirmed").as[Boolean]
+
     if (confirmed) {
-      gamesCollection.update(
-        Json.obj("uuid" -> uuid),
-        Json.obj(
-          "$set" -> Json.obj(
-            "confirmed" -> true
+      for {
+        _ <- {
+          gamesCollection.update(
+            Json.obj("uuid" -> uuid),
+            Json.obj(
+              "$set" -> Json.obj(
+                "confirmed" -> true
+              )
+            )
           )
-        )
-      ).map(_ => Ok(Json.obj("result" -> "Game confimed")))
+        }
+        gameOpt <- {
+          gamesCollection.find(Json.obj("uuid" -> uuid)).one[Game]
+        }
+        game <- {
+          gameOpt.map(Future.successful(_)).getOrElse(Future.failed(new Exception(s"Game ${uuid} not found")))
+        }
+        allRatings <- ratingsCollection.find(Json.obj()).cursor[Ratings]().collect[Seq]()
+        newRatings <- Future.successful(Ratings.updateRatings(game, allRatings))
+        _ <- {
+          val updateResultsSeq = newRatings.map { ratings =>
+            ratingsCollection.update(
+              Json.obj("player" -> ratings.player),
+              ratings,
+              upsert = true
+            )
+          }
+
+          Future.sequence(updateResultsSeq)
+        }
+      } yield {
+        Ok(Json.obj("result" -> "Game confimed", "newRatings" -> newRatings))
+      }
     } else {
       gamesCollection.remove(
         Json.obj("uuid" -> uuid)
       ).map(_ => Ok(Json.obj("result" -> "Gamed removed")))
+    }
+  }
+
+  def getRankedPlayers = Action.async {
+    val rankedRatings = ratingsCollection.find(Json.obj())
+      .sort(Json.obj("rating" -> -1))
+      .cursor[Ratings]()
+      .collect[Seq]()
+
+    rankedRatings.map { rankedRatings =>
+      Ok(Json.obj("rankedPlayers" -> rankedRatings))
     }
   }
 }

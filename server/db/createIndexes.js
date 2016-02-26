@@ -17,3 +17,13 @@ if (indexGamesUuid.ok === 1) {
 } else {
   print("[-] Games: Failed creating Index for (uuid)")
 }
+
+
+var indexRatingsPlayer = db.ratings.createIndex({player: 1}, {unique: true})
+
+if (indexRatingsPlayer.ok === 1) {
+  print("[+] Ratings: Successfully created Index for (player)")
+  print("=> Index count: " + indexRatingsPlayer.numIndexesAfter + ", was: " + indexRatingsPlayer.numIndexesBefore)
+} else {
+  print("[-] Ratings: Failed creating Index for (player)")
+}
