@@ -5,7 +5,7 @@ import connect from 'fluxx/lib/ReactConnector';
 import store, { incrementBy } from '../store';
 
 
-class Home extends React.Component {
+class Sports extends React.Component {
 
   render() {
     const { count, params: { id } } = this.props;
@@ -26,6 +26,6 @@ class Home extends React.Component {
 
 function incrementBy10() { incrementBy(10) }
 
-export default connect(Home, store, (state): count => (
+export default connect(Sports, store, (state): count => (
   { count: state.count }
 ));
