@@ -14,7 +14,7 @@ export default React.createClass({
 
   render() {
     return (
-      <div className="party">
+      <div className="party card">
         <div className="field">
           <label htmlFor="opponent">Opponent</label>
           <input ref="opponent" type="text" name="opponent" />
@@ -24,9 +24,9 @@ export default React.createClass({
           <input ref="date" type="date" name="date" />
         </div>
         <div className="field">
-          <button ref="win" type="submit" onClick={ this.onSubmit } data-value="1">Win</button>
-          <button ref="lose" type="submit" onClick={ this.onSubmit } data-value="0">Lose</button>
-          <button ref="draw" type="submit" onClick={ this.onSubmit } data-value="0.5">Draw</button>
+          <button ref="win" type="button" className="btn" onClick={ this.onSubmit } data-value="1">Win</button>
+          <button ref="lose" type="button" className="btn" onClick={ this.onSubmit } data-value="0">Lose</button>
+          <button ref="draw" type="button" className="btn secondary" onClick={ this.onSubmit } data-value="0.5">Draw</button>
         </div>
       </div> 
     );
@@ -50,7 +50,7 @@ export default React.createClass({
     }
 
     return post('/api/games', data)
-      .then(res => route.transition('app.sports'));
+      .then(res => router.transitionTo('app.sports'));
 
   }
 

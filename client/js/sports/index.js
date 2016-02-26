@@ -17,13 +17,12 @@ const Sports = React.createClass({
     const { count, params: { id } } = this.props;
 
     return (
-      <div className="sports">
-        <h1>hello world</h1>
-        <p>
-          <button type="button" onClick={ incrementBy10 }>Increment:</button>
-          {' '}
-          { count }
-        </p>
+      <div className="sports card">
+        <ul className="unstyled">
+          <li><a href={ router.link('app.party') }>Ping pong</a></li>
+          <li><a href={ router.link('app.party') }>Babyfoot</a></li>
+          <li><a href={ router.link('app.party') }>Chess</a></li>
+        </ul>
       </div>
     );
   }

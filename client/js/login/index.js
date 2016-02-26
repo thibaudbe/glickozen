@@ -14,13 +14,12 @@ export default React.createClass({
 
   render() {
     return (
-      <div className="login">
+      <div className="login card">
         <form onSubmit={ this.onSubmit }>
           <div className="field">
-            <label htmlFor="username">Trigramme</label>
-            <input type="text" name="username" ref="username" />
+            <input type="text" name="username" ref="username" placeholder="Trigram" />
           </div>
-          <button type="submit">Let's go</button>
+          <button type="submit" className="btn">Login</button>
         </form> 
       </div> 
     );
