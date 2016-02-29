@@ -5,7 +5,6 @@ import connect from 'fluxx/lib/ReactConnector';
 import store, { incrementBy } from '../store';
 import { checkCookie } from '../util/cookie';
 
-
 const Sports = React.createClass({
 
   componentWillMount() {
@@ -14,14 +13,12 @@ const Sports = React.createClass({
   },
 
   render() {
-    const { count, params: { id } } = this.props;
-
+    const { count, sports, params: { id } } = this.props;
+    console.log('router', router);
     return (
       <div className="sports card">
         <ul className="unstyled">
-          <li><a href={ router.link('app.party') }>Ping pong</a></li>
-          <li><a href={ router.link('app.party') }>Babyfoot</a></li>
-          <li><a href={ router.link('app.party') }>Chess</a></li>
+          { sportsList(sports) }
         </ul>
       </div>
     );
@@ -29,8 +26,21 @@ const Sports = React.createClass({
 
 });
 
+function sportsList(sports) {
+  return sports.map((sport, index) => {
+    return (
+      <li key={ index }>
+        <a href={ router.link('app.score', { type: sport }) }>{ sport }</a>
+      </li>
+    )
+  });
+}
+
 function incrementBy10() { incrementBy(10) }
 
 export default connect(Sports, store, (state): count => (
-  { count: state.count }
+  { 
+    count: state.count, 
+    sports: state.sports
+  }
 ));

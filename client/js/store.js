@@ -3,9 +3,10 @@ import update, { replace } from 'immupdate';
 import { Store, Action } from 'fluxx';
 // Store.log = true;
 
-const { pendings } = initData;
 
-const initialState = { count: 0, pendings };
+const { sports } = initData;
+
+const initialState = { count: 0, sports };
 
 
 // Action

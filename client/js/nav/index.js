@@ -1,11 +1,13 @@
 import React from 'react';
 import { api as router } from 'abyssa';
+import connect from 'fluxx/lib/ReactConnector';
 
+import store, { incrementBy } from '../store';
 import { setCookie, checkCookie, getCookie } from '../util/cookie';
 import { get } from '../util/ajax';
 
 
-export default React.createClass({
+const Nav = React.createClass({
 
   getInitialState() {
     return {
@@ -30,7 +32,6 @@ export default React.createClass({
       <nav className="nav">
         <a href={ router.link('app.sports') }>sports</a>
         <a href={ router.link('app.pendings') }>pendings</a>
-        <a href={ router.link('app.party') }>add party</a>
         <a href="#" onClick={ this.onLogout }>logout</a>
         { pendingLength }
       </nav> 
@@ -43,3 +44,8 @@ export default React.createClass({
   }
 
 });
+
+
+export default connect(Nav, store, (state): count => (
+  { count: state.count }
+));

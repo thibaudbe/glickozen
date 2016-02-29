@@ -14,7 +14,7 @@ export default React.createClass({
 
   render() {
     return (
-      <div className="party card">
+      <div className="score card">
         <div className="field">
           <label htmlFor="opponent">Opponent</label>
           <input ref="opponent" type="text" name="opponent" />
