@@ -9,6 +9,15 @@ How to run:
 $ mongo host:port/dbname createIndexes.js
 
 */
+var indexUserEmail = db.users.createIndex({email: 1}, {unique: true})
+
+if (indexUserEmail.ok === 1) {
+  print("[+] Users: Successfully created Index for (email)")
+  print("=> Index count: " + indexUserEmail.numIndexesAfter + ", was: " + indexUserEmail.numIndexesBefore)
+} else {
+  print("[-] Users: Failed creating Index for (email)")
+}
+
 var indexGamesUuid = db.games.createIndex({uuid: 1}, {unique: true})
 
 if (indexGamesUuid.ok === 1) {

@@ -21,6 +21,10 @@ trait Repository[T]  {
     collection.insert(doc)
   }
 
+  def upsert(selector: JsObject, doc: T)(implicit reactiveMongoApi: ReactiveMongoApi): Future[WriteResult] = {
+    collection.update(selector, Json.obj("$set" -> doc), upsert = true)
+  }
+
   def list(query: JsObject = Json.obj())(implicit reactiveMongoApi: ReactiveMongoApi): Future[Seq[T]] = {
     collection.find(query).cursor[T]().collect[Seq]()
   }

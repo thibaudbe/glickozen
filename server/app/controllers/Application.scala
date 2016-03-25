@@ -39,7 +39,9 @@ class Application @Inject() (implicit reactiveMongoApi: ReactiveMongoApi) extend
     request.body.validate(authReads).fold(
       { errors => Future.successful(BadRequest(Json.obj("error" -> "Bad Request"))) }, { auth =>
         val user = User(email = auth.mail, name = auth.name, google_token = auth.token)
-        User.save(user).map(_ => Ok(Json.obj()))
+        User.upsertByEmail(user).map(_ => Ok(Json.obj()).withSession(
+          "email" -> user.email
+        ))
       }
     )
   }
