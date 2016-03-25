@@ -8,6 +8,7 @@ export default React.createClass({
 
   onSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
+    console.log(googleUser.getAuthResponse());
     post('/api/login', {
       mail: profile.getEmail(),
       token: googleUser.getAuthResponse().id_token,

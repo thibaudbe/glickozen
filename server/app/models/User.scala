@@ -11,7 +11,8 @@ import scala.concurrent.Future
 case class User(
   email: String,
   name: String,
-  google_token: String
+  google_token: String,
+  picture: String
 )
 
 object User extends Repository[User] {
@@ -20,6 +21,10 @@ object User extends Repository[User] {
 
   def upsertByEmail(user: User)(implicit reactiveMongoApi: ReactiveMongoApi): Future[WriteResult] = {
     upsert(Json.obj("email" -> user.email), user)
+  }
+
+  def findByEmail(email: String)(implicit reactiveMongoApi: ReactiveMongoApi): Future[Option[User]] = {
+    findByOpt(Json.obj("email" -> email))
   }
 }
 

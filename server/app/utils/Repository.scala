@@ -1,12 +1,12 @@
 package utils
 
 import play.api.libs.json._
-import play.modules.reactivemongo.json._
 import play.modules.reactivemongo.ReactiveMongoApi
+import play.modules.reactivemongo.json._
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.play.json.collection.JSONCollection
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 trait Repository[T]  {
@@ -29,7 +29,7 @@ trait Repository[T]  {
     collection.find(query).cursor[T]().collect[Seq]()
   }
 
-  def list()(implicit reactiveMongoApi: ReactiveMongoApi): Future[Seq[T]] = list()
+  def list(implicit reactiveMongoApi: ReactiveMongoApi): Future[Seq[T]] = list()
 
   def findByOpt(query: JsObject)(implicit reactiveMongoApi: ReactiveMongoApi): Future[Option[T]] = {
     collection.find(query).one[T]
