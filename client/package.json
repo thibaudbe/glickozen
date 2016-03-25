@@ -14,8 +14,12 @@
   "browserify": {
     "transform": [
       [
-        "babelify", { 
-          "presets": ["es2015", "react"] 
+        "babelify",
+        {
+          "presets": [
+            "es2015",
+            "react"
+          ]
         }
       ]
     ]
@@ -30,6 +34,7 @@
     "reactify": "1.1.1",
     "stylus": "0.53.0",
     "uglifyify": "3.0.1",
+    "uglifyjs": "2.4.10",
     "watchify": "3.7.0"
   },
   "dependencies": {
