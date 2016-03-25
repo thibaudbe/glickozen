@@ -1,7 +1,5 @@
-import React from 'react';
-import { api as router } from 'abyssa';
-
-import Nav from '../nav';
+import React from "react";
+import Nav from "../nav";
 
 
 export default React.createClass({
