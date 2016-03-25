@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { api as router } from 'abyssa';
-
-import { setCookie, checkCookie } from '../util/cookie';
+import React from "react";
+import { api as router } from "abyssa";
+import GoogleSignIn from "../util/GoogleSignIn";
+import { checkCookie } from "../util/cookie";
+import { post } from "../util/ajax"
 
 
 export default React.createClass({
@@ -12,28 +12,26 @@ export default React.createClass({
       .then(res => router.transitionTo('app.sports'))
   },
 
-  render() {
-    return (
-      <div className="login card">
-        <form onSubmit={ this.onSubmit }>
-          <div className="field">
-            <input type="text" name="username" ref="username" placeholder="Trigram" />
-          </div>
-          <button type="submit" className="btn">Login</button>
-        </form> 
-      </div> 
+  onSignIn(googleUser) {
+    const profile = googleUser.getBasicProfile();
+    post('/api/login', {
+      mail: profile.getEmail(),
+      token: googleUser.getAuthResponse().id_token,
+      name: profile.getName()
+    }).then(
+      succ => router.transitionTo('app.sports'),
+      err => console.log(err)
     );
   },
 
-  onSubmit(e) {
-    e.preventDefault();
-    const username = ReactDOM.findDOMNode(this.refs.username).value;
-
-    if (username.length === 3) {
-      setCookie('username', username, 365, res => router.transitionTo('app.sports'));
-    } else {
-      console.log('bad username, must be a trigram');
-    }
+  render() {
+    return (
+      <div className="login card">
+        <form>
+          <GoogleSignIn onSignIn={ this.onSignIn } theme="dark"/>
+        </form>
+      </div>
+    );
   }
 
 });

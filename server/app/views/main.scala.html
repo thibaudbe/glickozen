@@ -7,11 +7,13 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge, chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-signin-client_id" content="428268598557-5sd3chsjd1ucdvbl9h38iqpj1plul4l6.apps.googleusercontent.com">
 
   <title>Glicko Zen</title>
   
   <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
   <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("css/main.css")">
+
 
 </head>
 <body>
@@ -19,6 +21,12 @@
   <div id="reactApp"></div>
 
   <script id="init_data" data-value="@initData"></script>
+  <script src="https://apis.google.com/js/platform.js?onload=triggerGoogleLoaded" async defer></script>
+  <script type="text/javascript">
+    function triggerGoogleLoaded() {
+      window.dispatchEvent(new Event('google-loaded'));
+    }
+  </script>
   <script src="@routes.Assets.versioned("js/bundle.js")" type="text/javascript"></script>
 
 </body>

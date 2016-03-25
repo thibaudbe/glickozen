@@ -1,8 +1,5 @@
-import React from 'react';
-import { api as router } from 'abyssa';
-
-import { setCookie, checkCookie, getCookie } from '../util/cookie';
-import Nav from '../nav';
+import React from "react";
+import Nav from "../nav";
 
 
 export default React.createClass({
@@ -29,8 +26,8 @@ export default React.createClass({
         <Nav />
         <main>
           { this.props.children }
-        </main> 
-      </div> 
+        </main>
+      </div>
     );
   }
 
