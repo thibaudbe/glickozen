@@ -1,17 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { api as router } from 'abyssa';
-import { checkCookie, getCookie } from '../util/cookie';
-import { post } from '../util/ajax';
+import React from "react";
+import ReactDOM from "react-dom";
+import {getCookie} from "../util/cookie";
+import {get} from "../util/ajax";
 
 
 export default React.createClass({
-
-  componentWillMount() {
-    checkCookie('username')
-      .catch(res => router.transitionTo('app.login'))
-  },
-
+  
   render() {
     return (
       <div className="score card">
@@ -47,8 +41,8 @@ export default React.createClass({
       playerScore: parseInt(e.target.getAttribute('data-value')),
       confirmed: false,
       sport: 'pingpong'
-    }
-
+    };
+    
     return post('/api/games', data)
       .then(res => router.transitionTo('app.sports'));
 

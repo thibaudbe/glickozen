@@ -6,12 +6,7 @@ import store, { incrementBy } from '../store';
 import { checkCookie } from '../util/cookie';
 
 const Sports = React.createClass({
-
-  componentWillMount() {
-    checkCookie('username')
-      .catch(res => router.transitionTo('app.login'))
-  },
-
+  
   render() {
     const { count, sports, params: { id } } = this.props;
     console.log('router', router);

@@ -16,12 +16,8 @@ const Nav = React.createClass({
   },
 
   componentWillMount() {
-    checkCookie('username')
-      .catch(res => router.transitionTo('app.login'))
-
-    get(`/api/games/pending?player=${getCookie('username')}`)
-      .then(list => this.setState({ pendings: list }))
-
+    // get(`/api/games/pending?player=${getCookie('username')}`)
+    //   .then(list => this.setState({ pendings: list }))
   },
 
   render() {

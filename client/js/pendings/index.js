@@ -15,9 +15,6 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    checkCookie('username')
-      .catch(res => router.transitionTo('app.login'))
-
     get(`/api/games/pending?player=${getCookie('username')}`)
       .then(list => this.setState({ pendings: list }))
 
@@ -56,7 +53,6 @@ export default React.createClass({
 
   onUpdate(data) {
     console.log('data', data);
-    // api/games/confirm
     put('api/games/confirm', data)
       .then(res => console.log(res))
       .catch(res => console.log(res))

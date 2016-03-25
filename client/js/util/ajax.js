@@ -1,4 +1,5 @@
 import { extend, mapValues } from './obj';
+import { api as router } from "abyssa";
 
 /* Our internal ajax util returning a native Promise.
 
@@ -84,8 +85,9 @@ function ajax(options) {
             }
           }
           // this case can occur mainly when xhr.abort() has been called.
-          else
+          else {
             reject(rejected(xhr, parseResponseAs));
+          }
         }
         catch (e) {
           reject(rejected(xhr, parseResponseAs)); // IE can throw an error accessing the status
@@ -98,7 +100,14 @@ function ajax(options) {
 
     if (body !== undefined) xhr.send(body);
     else xhr.send();
-  });
+  }).then(
+    success => success,
+    error => {
+      if (error.status === 401) {
+        router.transitionTo('app.login')
+      } else return error;
+    }
+  );
 }
 
 function isOkStatus(s) {
