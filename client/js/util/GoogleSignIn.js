@@ -1,5 +1,4 @@
-import React from 'react';
-import { post } from '../util/ajax';
+import React from "react";
 
 
 export default React.createClass({
@@ -21,7 +20,7 @@ export default React.createClass({
   renderGoogleLoginButton() {
     const { width, height, theme, onSignIn } = this.props;
     gapi.signin2.render('my-signin2', {
-      'scope': 'https://www.googleapis.com/auth/plus.login',
+      'scope': 'profile https://www.googleapis.com/auth/contacts.readonly',
       'width': width,
       'height': height,
       'longtitle': true,
