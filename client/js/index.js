@@ -7,6 +7,7 @@ import Login from "./login";
 import Sports from "./sports";
 import Pendings from "./pendings";
 import Score from "./score";
+import { get } from "./util/ajax";
 
 
 const State = ReactState(document.getElementById('reactApp'));
@@ -19,15 +20,11 @@ if (!location.hash || location.hash === '#/') {
 
 Router({
   app: State('', layout, {
-    show: {
-      uri: '',
-      enter: (x, y, router) => { router.transitionTo('sports'); }
-    },
     login: State('login', Login),
     sports: State('sports', Sports),
     pendings: State('pendings', Pendings),
     score: State('score/:type', Score)
   })
 })
-.configure({ urlSync: 'hash' })
+.configure({ urlSync: 'hash' , enableLogs: true})
 .init();

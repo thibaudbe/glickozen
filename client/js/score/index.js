@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {getCookie} from "../util/cookie";
-import {get} from "../util/ajax";
+import { getCookie } from "../util/cookie";
+import { get, post } from "../util/ajax";
+import { api as router } from 'abyssa';
 
 
 export default React.createClass({
-  
+
   render() {
     return (
       <div className="score card">
@@ -22,7 +23,7 @@ export default React.createClass({
           <button ref="lose" type="button" className="btn" onClick={ this.onSubmit } data-value="0">Lose</button>
           <button ref="draw" type="button" className="btn secondary" onClick={ this.onSubmit } data-value="0.5">Draw</button>
         </div>
-      </div> 
+      </div>
     );
   },
 
@@ -35,14 +36,14 @@ export default React.createClass({
     var today = d.getTime();
 
     const data = {
-      opponent, 
+      opponent,
       date: 1456502889847,
       player: getCookie('username'),
       playerScore: parseInt(e.target.getAttribute('data-value')),
       confirmed: false,
       sport: 'pingpong'
     };
-    
+
     return post('/api/games', data)
       .then(res => router.transitionTo('app.sports'));
 

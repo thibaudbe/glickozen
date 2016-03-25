@@ -11,8 +11,7 @@ import play.modules.reactivemongo.ReactiveMongoApi
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
-class Application @Inject() (implicit reactiveMongoApi: ReactiveMongoApi) extends Controller {
+class Application @Inject() (implicit reactiveMongoApi: ReactiveMongoApi) extends Security {
 
   def main = Action {
     val initData = Json.obj(
@@ -20,6 +19,10 @@ class Application @Inject() (implicit reactiveMongoApi: ReactiveMongoApi) extend
     )
 
     Ok(views.html.main(initData))
+  }
+
+  def auth = LoggedUserAction().async {
+    Future.successful(Ok(Json.obj()))
   }
 
   case class Auth(

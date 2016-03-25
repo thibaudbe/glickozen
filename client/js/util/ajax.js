@@ -100,14 +100,7 @@ function ajax(options) {
 
     if (body !== undefined) xhr.send(body);
     else xhr.send();
-  }).then(
-    success => success,
-    error => {
-      if (error.status === 401) {
-        router.transitionTo('app.login')
-      } else return error;
-    }
-  );
+  });
 }
 
 function isOkStatus(s) {
