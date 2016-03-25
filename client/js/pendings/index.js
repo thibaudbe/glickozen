@@ -1,9 +1,7 @@
-import React from 'react';
-import update, { replace } from 'immupdate';
-import { api as router } from 'abyssa';
-
-import { checkCookie, getCookie } from '../util/cookie';
-import { get, put } from '../util/ajax';
+import React from "react";
+import {replace} from "immupdate";
+import {getCookie} from "../util/cookie";
+import {get, put} from "../util/ajax";
 
 
 export default React.createClass({

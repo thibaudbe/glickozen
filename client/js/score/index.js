@@ -1,18 +1,52 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { getCookie } from "../util/cookie";
-import { get, post } from "../util/ajax";
-import { api as router } from 'abyssa';
+import {getCookie} from "../util/cookie";
+import MultiSelect from "react-select";
+import {post} from "../util/ajax";
+import {api as router} from "abyssa";
 
 
 export default React.createClass({
 
+  getInitialState() {
+    return {
+      opponent: []
+    }
+  },
+
+  onChange(field) {
+    return (e) => {
+      console.log(e);
+      if (field === "opponent") {
+        const values = e.split(",");
+        this.setState({ opponent: values });
+      } else this.setState({[field]: e.target.value});
+    }
+  },
+  
   render() {
+    const options = [
+      { value: 'one', label: 'One' },
+      { value: 'two', label: 'Two' }
+    ];
+
     return (
       <div className="score card">
         <div className="field">
           <label htmlFor="opponent">Opponent</label>
-          <input ref="opponent" type="text" name="opponent" />
+          <MultiSelect
+            multi
+            simpleValue
+            disabled={ false }
+            autoload={ false }
+            options={ options }
+            clearable={ true }
+            searchable={ true }
+            value={ this.state.opponent.toString() }
+            onChange={ this.onChange("opponent") }
+            placeholder="Select your opponents..."
+            noResultsText="Aucun résultat"
+          />
         </div>
         <div className="field">
           <label htmlFor="date">Date</label>
