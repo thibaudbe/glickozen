@@ -11,6 +11,7 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   "org.reactivemongo" %% "play2-reactivemongo" % "0.11.10",
+  "com.google.api-client" % "google-api-client" % "1.20.0",
   specs2 % Test
 )
 

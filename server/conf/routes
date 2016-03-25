@@ -17,3 +17,6 @@ GET         /api/games/pending        controllers.Games.getPendingGames(player: 
 PUT         /api/games/confirm        controllers.Games.confirmGame
 
 GET         /api/ratings              controllers.Games.getRankedPlayers(sport: String)
+
+GET         /caca                     controllers.Application.unauth
+GET         /api/getContacts          controllers.Application.getContacts

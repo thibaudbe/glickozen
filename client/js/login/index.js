@@ -1,13 +1,14 @@
 import React from "react";
 import {api as router} from "abyssa";
 import GoogleSignIn from "../util/GoogleSignIn";
-import {get, post} from "../util/ajax";
+import {post} from "../util/ajax";
 
 
 export default React.createClass({
 
   onSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
+    console.log(googleUser.getAuthResponse());
     post('/api/login', {
       mail: profile.getEmail(),
       token: googleUser.getAuthResponse().id_token,
@@ -19,10 +20,6 @@ export default React.createClass({
   },
 
   render() {
-    // get('/caca').then(
-    //   succ => console.log("success"),
-    //   err => console.log('error', err)
-    // );
     return (
       <div className="login card">
         <form>
