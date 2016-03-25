@@ -14,7 +14,7 @@ export default React.createClass({
 
   onSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
-    post('/login', {
+    post('/api/login', {
       mail: profile.getEmail(),
       token: googleUser.getAuthResponse().id_token,
       name: profile.getName()
@@ -30,7 +30,7 @@ export default React.createClass({
         <form>
           <GoogleSignIn onSignIn={ this.onSignIn } theme="dark"/>
         </form>
-      </div> 
+      </div>
     );
   }
 
