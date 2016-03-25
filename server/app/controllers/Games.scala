@@ -15,15 +15,15 @@ import reactivemongo.play.json.collection.JSONCollection
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class Games @Inject() (val reactiveMongoApi: ReactiveMongoApi)
-  extends Controller with MongoController with ReactiveMongoComponents {
+class Games @Inject() (implicit reactiveMongoApi: ReactiveMongoApi)
+  extends Controller with Security {
 
   val logger = play.api.Logger("controllers.games")
 
-  val gamesCollection: JSONCollection = db.collection[JSONCollection]("games")
-  val ratingsCollection: JSONCollection = db.collection[JSONCollection]("ratings")
+  val gamesCollection: JSONCollection = reactiveMongoApi.db.collection[JSONCollection]("games")
+  val ratingsCollection: JSONCollection = reactiveMongoApi.db.collection[JSONCollection]("ratings")
 
-  def addGame() = Action.async(parse.json) { request =>
+  def addGame = LoggedUserAction().async(parse.json) { request =>
 
     def insert(game: Game, retry: Int): Future[WriteResult] = {
       gamesCollection.insert(game).recoverWith {
@@ -44,9 +44,8 @@ class Games @Inject() (val reactiveMongoApi: ReactiveMongoApi)
     )
   }
 
-  def getGames(player: String) = Action.async {
-    gamesCollection
-      .find(Json.obj(
+  def getGames(player: String) = LoggedUserAction().async {
+    gamesCollection.find(Json.obj(
         "$or" -> Json.arr(
           Json.obj("player" -> player),
           Json.obj("opponent" -> player)
@@ -57,9 +56,9 @@ class Games @Inject() (val reactiveMongoApi: ReactiveMongoApi)
       .map(games => Ok(Json.toJson(games)))
   }
 
-  def getPendingGames(player: String) = Action.async {
-    gamesCollection
-      .find(Json.obj(
+  def getPendingGames(player: String) = LoggedUserAction().async {
+    gamesCollection.find(
+      Json.obj(
         "opponent" -> player,
         "confirmed" -> false
       ))
@@ -99,7 +98,7 @@ class Games @Inject() (val reactiveMongoApi: ReactiveMongoApi)
     }
   }
 
-  def confirmGame = Action.async(parse.json) { request =>
+  def confirmGame = LoggedUserAction().async(parse.json) { request =>
     val uuid = (request.body \ "uuid").as[String]
     val confirmed = (request.body \ "confirmed").as[Boolean]
 
@@ -118,7 +117,7 @@ class Games @Inject() (val reactiveMongoApi: ReactiveMongoApi)
     }
   }
 
-  def getRankedPlayers(sport: String) = Action.async {
+  def getRankedPlayers(sport: String) = LoggedUserAction().async {
     ratingsCollection.find(Json.obj("sport" -> sport))
       .sort(Json.obj("rating" -> -1))
       .cursor[Ratings]()

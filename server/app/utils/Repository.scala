@@ -31,4 +31,8 @@ trait Repository[T]  {
 
   def list()(implicit reactiveMongoApi: ReactiveMongoApi): Future[Seq[T]] = list()
 
+  def findByOpt(query: JsObject)(implicit reactiveMongoApi: ReactiveMongoApi): Future[Option[T]] = {
+    collection.find(query).one[T]
+  }
+
 }
