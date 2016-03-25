@@ -18,6 +18,15 @@ if (indexUserEmail.ok === 1) {
   print("[-] Users: Failed creating Index for (email)")
 }
 
+var indexSportCode = db.users.createIndex({code: 1}, {unique: true})
+
+if (indexSportCode.ok === 1) {
+  print("[+] Sports: Successfully created Index for (code)")
+  print("=> Index count: " + indexSportCode.numIndexesAfter + ", was: " + indexSportCode.numIndexesBefore)
+} else {
+  print("[-] Sports: Failed creating Index for (code)")
+}
+
 var indexGamesUuid = db.games.createIndex({uuid: 1}, {unique: true})
 
 if (indexGamesUuid.ok === 1) {
@@ -25,14 +34,4 @@ if (indexGamesUuid.ok === 1) {
   print("=> Index count: " + indexGamesUuid.numIndexesAfter + ", was: " + indexGamesUuid.numIndexesBefore)
 } else {
   print("[-] Games: Failed creating Index for (uuid)")
-}
-
-
-var indexRatingsPlayer = db.ratings.createIndex({sport: 1, player: 1}, {unique: true})
-
-if (indexRatingsPlayer.ok === 1) {
-  print("[+] Ratings: Successfully created Index for (sport, player)")
-  print("=> Index count: " + indexRatingsPlayer.numIndexesAfter + ", was: " + indexRatingsPlayer.numIndexesBefore)
-} else {
-  print("[-] Ratings: Failed creating Index for (sport, player)")
 }

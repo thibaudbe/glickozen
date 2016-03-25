@@ -3,13 +3,11 @@ package controllers
 import java.util.UUID
 import javax.inject.Inject
 
-import models.{Ratings, Game}
+import models.{Game, Ratings, Sport}
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc._
 import play.modules.reactivemongo._
 import play.modules.reactivemongo.json._
-import reactivemongo.api.commands.WriteResult
-import reactivemongo.core.errors.DatabaseException
 import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -25,21 +23,19 @@ class Games @Inject() (implicit reactiveMongoApi: ReactiveMongoApi)
 
   def addGame = LoggedUserAction().async(parse.json) { request =>
 
-    def insert(game: Game, retry: Int): Future[WriteResult] = {
-      gamesCollection.insert(game).recoverWith {
-        case e: DatabaseException if e.code.contains(11000) & retry > 0 => insert(game.copy(uuid = UUID.randomUUID()), retry - 1)
-        case e =>
-          logger.error(s"Failed to insert game into mongo, game: ${game.toString}", e)
-          Future.failed(e)
-      }
-    }
-
     val jsonWithUUID = request.body.as[JsObject] + ("uuid" -> Json.toJson(UUID.randomUUID()))
 
     Json.fromJson[Game](jsonWithUUID).fold(
       invalid = { errs => Future.successful(BadRequest(Json.obj("errors" -> errs.toString())))},
       valid = { newGame =>
-        insert(newGame, 5).map(_ => Ok(Json.obj{"result" -> "Game added to mongo"}))
+        for {
+          _ <- Game.insert(newGame, 5)
+          - <- updateGameCollection(newGame.uuid.toString)
+          game <- retrieveGame(newGame.uuid.toString)
+          newRatings <- Sport.updateRatings(game)
+        } yield {
+          Ok(Json.obj("result" -> "Game added to mongo", "newRatings" -> newRatings))
+        }
       }
     )
   }
@@ -79,24 +75,9 @@ class Games @Inject() (implicit reactiveMongoApi: ReactiveMongoApi)
   )
 
   private def retrieveGame(uuid: String) = for {
-    gameOpt <- gamesCollection.find(Json.obj("uuid" -> uuid)).one[Game]
+    gameOpt <- Game.findByOpt(Json.obj("uuid" -> uuid))
     game <- gameOpt.map(Future.successful).getOrElse(Future.failed(new Exception(s"Game $uuid not found")))
   } yield game
-
-  private def retrieveNewRating(game: Game) = for {
-    allSportRatings <- ratingsCollection.find(Json.obj("sport" -> game.sport)).cursor[Ratings]().collect[Seq]()
-    newRatings <- Future.successful(Ratings.updateRatings(game, allSportRatings))
-  } yield newRatings
-
-  private def updateRatingsCollection(newRatings: Seq[Ratings]) = Future.sequence {
-    newRatings.map { ratings =>
-      ratingsCollection.update(
-        Json.obj("player" -> ratings.player),
-        ratings,
-        upsert = true
-      )
-    }
-  }
 
   def confirmGame = LoggedUserAction().async(parse.json) { request =>
     val uuid = (request.body \ "uuid").as[String]
@@ -106,13 +87,12 @@ class Games @Inject() (implicit reactiveMongoApi: ReactiveMongoApi)
       for {
         _ <- updateGameCollection(uuid)
         game <- retrieveGame(uuid)
-        newRatings <- retrieveNewRating(game)
-        _ <- updateRatingsCollection(newRatings)
+        newRatings <- Sport.updateRatings(game)
       } yield {
         Ok(Json.obj("result" -> "Game confimed", "newRatings" -> newRatings))
       }
     } else {
-      gamesCollection.remove(Json.obj("uuid" -> uuid))
+      Game.remove(Json.obj("uuid" -> uuid))
         .map(_ => Ok(Json.obj("result" -> "Gamed removed")))
     }
   }

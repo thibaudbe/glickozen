@@ -2,8 +2,8 @@ package controllers
 
 import javax.inject.Inject
 
-import models.{Sports, User}
 import play.api.Configuration
+import models.{Sport, User}
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
@@ -20,7 +20,7 @@ class Application @Inject()(
 
   def main = Action {
     val initData = Json.obj(
-      "sports" -> Sports.list
+      "sports" -> Sport.list
     )
 
     Ok(views.html.main(initData))

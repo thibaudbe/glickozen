@@ -25,6 +25,10 @@ trait Repository[T]  {
     collection.update(selector, Json.obj("$set" -> doc), upsert = true)
   }
 
+  def remove(query: JsObject)(implicit reactiveMongoApi: ReactiveMongoApi): Future[WriteResult] = {
+    collection.remove(query)
+  }
+
   def list(query: JsObject = Json.obj())(implicit reactiveMongoApi: ReactiveMongoApi): Future[Seq[T]] = {
     collection.find(query).cursor[T]().collect[Seq]()
   }
