@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { api as router } from 'abyssa';
 
+import GoogleSignIn from '../util/GoogleSignIn';
+
 import { setCookie, checkCookie } from '../util/cookie';
 
 
@@ -19,7 +21,7 @@ export default React.createClass({
           <div className="field">
             <input type="text" name="username" ref="username" placeholder="Trigram" />
           </div>
-          <button type="submit" className="btn">Login</button>
+          <GoogleSignIn />
         </form> 
       </div> 
     );
