@@ -27,7 +27,7 @@ object Sport extends Repository[Sport] {
   def updateRatings(game: Game)(implicit reactiveMongoApi: ReactiveMongoApi): Future[Seq[Ratings]] = {
     for {
       sportOpt <- findByOpt(Json.obj("code" -> game.sport))
-      sport <- sportOpt.map(Future.successful(_)).getOrElse(Future.failed(new Exception(s"Sport ${game.sport} not found")))
+      sport <- sportOpt.map(Future.successful(_)).getOrElse(Future.successful(Sport(game.sport, "", Seq())))
       teams = buildGlickoPlayersFromRatings(sport.leaderBoard)
       currentLeaderboard = Leaderboard.fromPlayers(teams)
       outcome = game.team1Score match {

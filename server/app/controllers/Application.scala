@@ -45,38 +45,38 @@ class Application @Inject()(
   def login = Action.async(parse.json) { implicit request =>
     request.body.validate(authReads).fold(
       errors => Future.successful(BadRequest(Json.obj("error" -> "Bad Request"))),
-      auth =>
-        wsClient.url(s"https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${auth.token}").get().flatMap { response =>
-          val jsonResponse: JsValue = Json.parse(response.body)
-          val aud = (jsonResponse \ "aud").toOption match {
-            case Some(JsString(s)) =>
-              config.getString("google.oauth.clientID").contains(s)
-            case _ =>
-              println("FALSE")
-              false
-          }
-          val sub = (jsonResponse \ "sub").toOption match {
-            case Some(JsString(s)) => Some(s)
-            case _ => None
-          }
-          val email = (jsonResponse \ "email").toOption match {
-            case Some(JsString(m)) => Some(m)
-            case _ => None
-          }
-          val name = (jsonResponse \ "name").toOption match {
-            case Some(JsString(n)) => Some(n)
-            case _ => None
-          }
-          val picture = (jsonResponse \ "picture").toOption match {
-            case Some(JsString(p)) => Some(p)
-            case _ => None
-          }
-          if (aud && Seq(sub, email, name, picture).forall(_.isDefined)) {
-            val user = User(email = email.get, name = name.get, google_token = sub.get, picture = picture.get)
+      auth => {
+//        wsClient.url(s"https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${auth.token}").get().flatMap { response =>
+//          val jsonResponse: JsValue = Json.parse(response.body)
+//          val aud = (jsonResponse \ "aud").toOption match {
+//            case Some(JsString(s)) =>
+//              config.getString("google.oauth.clientID").contains(s)
+//            case _ =>
+//              println("FALSE")
+//              false
+//          }
+//          val sub = (jsonResponse \ "sub").toOption match {
+//            case Some(JsString(s)) => Some(s)
+//            case _ => None
+//          }
+//          val email = (jsonResponse \ "email").toOption match {
+//            case Some(JsString(m)) => Some(m)
+//            case _ => None
+//          }
+//          val name = (jsonResponse \ "name").toOption match {
+//            case Some(JsString(n)) => Some(n)
+//            case _ => None
+//          }
+//          val picture = (jsonResponse \ "picture").toOption match {
+//            case Some(JsString(p)) => Some(p)
+//            case _ => None
+//          }
+          //if (aud && Seq(sub, email, name, picture).forall(_.isDefined)) {
+            val user = User(email = auth.mail, name = auth.name, google_token = auth.token, picture = "")
             User.upsertByEmail(user).map { _ =>
               Ok(Json.obj()).withSession("email" -> user.email)
             }
-          } else Future.successful(BadRequest)
+          //} else Future.successful(BadRequest)
         }
 
     )

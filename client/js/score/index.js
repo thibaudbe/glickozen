@@ -27,7 +27,8 @@ export default React.createClass({
     return {
       data: [],
       date: moment().format("DD/MM/YYYY"),
-      opponent: []
+      opponent: [],
+      team1: []
     }
   },
 
@@ -39,7 +40,7 @@ export default React.createClass({
       } else this.setState({[field]: e.target.value});
     }
   },
-  
+
   render() {
     return (
       <div className="score card">
@@ -53,7 +54,7 @@ export default React.createClass({
             options={ this.state.data }
             clearable={ true }
             searchable={ true }
-            value={ this.state.opponent.toString() }
+            value={ this.state.team1.toString() }
             onChange={ this.onChange("team1") }
             placeholder="Select your opponents..."
             noResultsText="Aucun résultat"
@@ -97,12 +98,12 @@ export default React.createClass({
       const data = {
         team1: team1,
         team2: team2,
-        date: date,
-        playerScore: score,
+        date: 1456502889847,
+        team1Score: score,
         confirmed: false,
         sport: 'pingpong'
       };
-      
+
       post('/api/games', data)
         .then(res => router.transitionTo('app.sports'));
     }

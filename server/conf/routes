@@ -12,7 +12,7 @@ GET         /api/login                controllers.Application.auth
 POST        /api/login                controllers.Application.login
 
 POST        /api/games                controllers.Games.addGame
-GET         /api/games                controllers.Games.getGames(player: String)
+# GET         /api/games                controllers.Games.getGames
 GET         /api/games/pending        controllers.Games.getPendingGames(player: String)
 PUT         /api/games/confirm        controllers.Games.confirmGame
 

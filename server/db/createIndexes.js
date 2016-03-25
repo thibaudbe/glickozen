@@ -18,7 +18,7 @@ if (indexUserEmail.ok === 1) {
   print("[-] Users: Failed creating Index for (email)")
 }
 
-var indexSportCode = db.users.createIndex({code: 1}, {unique: true})
+var indexSportCode = db.sports.createIndex({code: 1}, {unique: true})
 
 if (indexSportCode.ok === 1) {
   print("[+] Sports: Successfully created Index for (code)")

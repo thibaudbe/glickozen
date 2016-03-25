@@ -40,17 +40,17 @@ class Games @Inject() (implicit reactiveMongoApi: ReactiveMongoApi)
     )
   }
 
-  def getGames(player: String) = LoggedUserAction().async {
-    gamesCollection.find(Json.obj(
-        "$or" -> Json.arr(
-          Json.obj("player" -> player),
-          Json.obj("opponent" -> player)
-        )
-      ))
-      .cursor[Game]()
-      .collect[Seq]()
-      .map(games => Ok(Json.toJson(games)))
-  }
+//  def getGames = LoggedUserAction().async {
+//    gamesCollection.find(Json.obj(
+//        "$or" -> Json.arr(
+//          Json.obj("player" -> player),
+//          Json.obj("opponent" -> player)
+//        )
+//      ))
+//      .cursor[Game]()
+//      .collect[Seq]()
+//      .map(games => Ok(Json.toJson(games)))
+//  }
 
   def getPendingGames(player: String) = LoggedUserAction().async {
     gamesCollection.find(
