@@ -1,0 +1,33 @@
+// Charte graphique
+
+font-url(file)
+  return '../fonts/' + file
+
+webfont(family, file, weight = 'normal', sty = 'normal')
+  @font-face
+    font-family family
+    font-weight weight
+    font-style sty
+    src url(font-url(file + '.eot'))
+    src url(font-url(file + '.eot?#iefix')) format('embedded-opentype'),
+      url(font-url(file + '.woff2')) format('woff2'),
+      url(font-url(file + '.woff')) format('woff'),
+      url(font-url(file + '.ttf')) format('truetype'),
+      url(font-url(file + '.svg#'+ family)) format('svg')
+
+webfont('dinregular', 'din-regular-webfont', normal, normal)
+webfont('dinregular', 'din-medium-webfont', bold, normal)
+
+::selection 
+  background-color lighten($color1, 90%)
+
+html
+  overflow-x hidden
+  overflow-y scroll
+
+body
+  color $color0
+  font-family $font1
+  font-size 1em
+  background-color #EFF6F9
+  

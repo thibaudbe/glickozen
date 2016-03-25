@@ -27,4 +27,5 @@ server/public/css/main.css
 server/public/js/bundle.js
 
 *.sublime-workspace
+*.sublime-project
 

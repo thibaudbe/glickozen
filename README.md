@@ -24,8 +24,8 @@ Server side
 Mongo
 
 ```
-  cd server/db/
-  mongod
+  cd server/db
+  sudo mongod
   mongo glickozen createIndexes.js
 ```
 
