@@ -1,0 +1,30 @@
+#score {
+  z-index: 11;
+  
+  .btn {
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
+#btnScore {
+  color: #fff;
+  font-size: 2rem;
+  background-color: #FFDD75;
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  width: 70px;
+  height: 70px;
+  margin: 0 20px 20px 0;
+  prefix(border-radius, 50%);
+  prefix(box-shadow, 0 0 20px 0 rgba(0,0,0,0.2));
+  prefix(transition, box-shadow 240ms);
+  
+  &:hover, &:focus {
+    prefix(box-shadow, 0 0 40px 0 rgba(0,0,0,0.3));
+  }
+}

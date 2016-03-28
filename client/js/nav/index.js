@@ -21,11 +21,12 @@ const Nav = React.createClass({
   },
 
   render() {
+    const id = 'nav';
     const { pendings } = this.state;
     const pendingLength = pendings !== 0 ? <button className="notif" onClick={ () => router.transitionTo('app.pendings') }>{ pendings.length }</button> : undefined;
 
     return (
-      <nav className="nav">
+      <nav id={ id }>
         <a href={ router.link('app.sports') }>sports</a>
         <a href={ router.link('app.pendings') }>pendings</a>
         <a href="#" onClick={ this.onLogout }>logout</a>
@@ -41,7 +42,6 @@ const Nav = React.createClass({
 
 });
 
-
-export default connect(Nav, store, (state): count => (
-  { count: state.count }
-));
+export default connect(Nav, store, (state): e => ({ 
+  sports: state.sports
+}));

@@ -1,12 +1,13 @@
-import React from "react";
+import React from 'react';
 
+const { func, number, oneOf } = React.PropTypes;
 
 export default React.createClass({
   propTypes: {
-    onSignIn: React.PropTypes.func,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    theme: React.PropTypes.oneOf(['light', 'dark'])
+    onSignIn: func,
+    width: number,
+    height: number,
+    theme: oneOf([ 'light', 'dark' ])
   },
   
   getDefaultProps() {
@@ -19,7 +20,7 @@ export default React.createClass({
 
   renderGoogleLoginButton() {
     const { width, height, theme, onSignIn } = this.props;
-    gapi.signin2.render('my-signin2', {
+    gapi.signin2.render('signin', {
       'scope': 'profile https://www.googleapis.com/auth/contacts.readonly',
       'width': width,
       'height': height,
@@ -34,9 +35,9 @@ export default React.createClass({
   },
 
   render() {
-    const displayText = "Sign in with Google";
+    const displayText = "Sign in with Google !";
     return (
-      <div id="my-signin2"></div>
+      <div id="signin"></div>
     );
   }
 

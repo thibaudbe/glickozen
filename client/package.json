@@ -4,10 +4,10 @@
   "scripts": {
     "postinstall": "npm run build",
     "build": "npm run build-js & npm run build-css",
-    "build-js": "browserify js/index.js | uglifyjs -cm > ../server/public/js/bundle.js",
+    "build-js": "browserify js/main.js | uglifyjs -cm > ../server/public/js/bundle.js",
     "build-css": "stylus -c stylus/main.styl -o ../server/public/css/main.css ",
     "start": "npm run watch-js & npm run watch-css & npm run server",
-    "watch-js": "watchify --debug js/index.js -d -o ../server/public/js/bundle.js -v",
+    "watch-js": "watchify --debug js/main.js -d -o ../server/public/js/bundle.js -v",
     "watch-css": "stylus --sourcemap-inline -w stylus/main.styl -o ../server/public/css/",
     "server": "browser-sync start --proxy localhost:9000 --files '../server/public/css/*.css, ../server/public/js/*.js'"
   },
@@ -41,7 +41,7 @@
   "dependencies": {
     "abyssa": "7.2.5",
     "fluxx": "0.13.0",
-    "moment": "^2.12.0",
+    "moment": "2.12.0",
     "react": "0.14.7",
     "react-dom": "0.14.7"
   }

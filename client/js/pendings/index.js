@@ -1,7 +1,7 @@
-import React from "react";
-import {replace} from "immupdate";
-import {getCookie} from "../util/cookie";
-import {get, put} from "../util/ajax";
+import React from 'react';
+import { replace } from 'immupdate';
+import { getCookie } from '../util/cookie';
+import { get, put } from '../util/ajax';
 
 
 export default React.createClass({
@@ -19,6 +19,7 @@ export default React.createClass({
   },
 
   render() {
+    const id = 'pendings';
     const { pendings } = this.state;
 
     const pendingList = pendings && pendings.length !== 0 
@@ -41,7 +42,7 @@ export default React.createClass({
 
 
     return (
-      <div className="pendings card">
+      <div id={ id } className="pendings card">
         <ul className="unstyled">
           { pendingList }
         </ul>
@@ -50,10 +51,10 @@ export default React.createClass({
   },
 
   onUpdate(data) {
-    console.log('data', data);
+    // console.log('data', data);
     put('api/games/confirm', data)
-      .then(res => console.log(res))
-      .catch(res => console.log(res))
+      .then(e => console.log(e))
+      .catch(x => console.log(x))
   }
 
 });
