@@ -14,6 +14,14 @@ Client side
   npm start
 ```
 
+Enable logs
+
+```
+  http://localhost:3000/?log=all#/
+  http://localhost:3000/?log=fluxx#/ // or store
+  http://localhost:3000/?log=abyssa#/ // or router
+```
+
 Server side
 
 ```
@@ -28,6 +36,7 @@ Mongo
   sudo mongod
   mongo glickozen createIndexes.js
 ```
+
 
 # Test
 

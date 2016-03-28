@@ -25,7 +25,7 @@ trait Security extends Controller {
               }.getOrElse(Future.successful(Left(Unauthorized(Json.obj("error" -> "Unauthorized")))))
             }
           } yield result
-        case None => Future.successful(Left(Unauthorized(Json.obj("erro" -> "Unauthorized"))))
+        case None => Future.successful(Left(Unauthorized(Json.obj("error" -> "Unauthorized"))))
       }
     }
   }
