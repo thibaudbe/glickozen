@@ -18,8 +18,7 @@ case class Game(
   team1: Set[String], // team1 emails
   team2: Set[String], // team2 emails
   team1Score: Double,
-  date: DateTime,
-  confirmed: Boolean
+  date: DateTime
 )
 
 object Game extends Repository[Game] {

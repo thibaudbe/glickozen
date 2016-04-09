@@ -16,7 +16,7 @@ class Application @Inject()(
   config: Configuration
 )(implicit reactiveMongoApi: ReactiveMongoApi) extends Controller {
 
-  def main = Action {
+  def main(path: String) = Action {
     val initData = Json.obj(
       "sports" -> Sport.list
     )
@@ -26,6 +26,7 @@ class Application @Inject()(
 
   def getContacts = Action.async { implicit request =>
     User.list().map { users =>
+      println(users)
       Ok(Json.obj("data" -> users))
     }
   }

@@ -50,7 +50,6 @@ export default React.createClass({
   },
 
   onUpdate(data) {
-    console.log('data', data);
     put('api/games/confirm', data)
       .then(res => console.log(res))
       .catch(res => console.log(res))
