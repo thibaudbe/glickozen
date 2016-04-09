@@ -11,15 +11,11 @@ export default React.createClass({
     get('/api/getContacts')
       .then(
         succ => {
-          console.log(succ);
           this.setState({ data: succ.data.map(item => {
           return { value: item.email, label: item.name };
         }) })
       },
-        err => {
-          console.log(err);
-          this.setState({ data: [] })
-        }
+        err => this.setState({ data: [] })
       );
   },
 

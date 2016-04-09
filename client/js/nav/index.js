@@ -1,10 +1,7 @@
-import React from 'react';
-import { api as router } from 'abyssa';
-import connect from 'fluxx/lib/ReactConnector';
-
-import store, { incrementBy } from '../store';
-import { setCookie, checkCookie, getCookie } from '../util/cookie';
-import { get } from '../util/ajax';
+import React from "react";
+import {api as router} from "abyssa";
+import connect from "fluxx/lib/ReactConnector";
+import store from "../store";
 
 
 const Nav = React.createClass({
@@ -15,14 +12,11 @@ const Nav = React.createClass({
     }
   },
 
-  componentWillMount() {
-    // get(`/api/games/pending?player=${getCookie('username')}`)
-    //   .then(list => this.setState({ pendings: list }))
-  },
-
   render() {
     const { pendings } = this.state;
-    const pendingLength = pendings !== 0 ? <button className="notif" onClick={ () => router.transitionTo('app.pendings') }>{ pendings.length }</button> : undefined;
+    const pendingLength = pendings !== 0
+      ? <button className="notif" onClick={ () => router.transitionTo('app.pendings') }>{ pendings.length }</button>
+      : undefined;
 
     return (
       <nav className="nav">
@@ -36,7 +30,7 @@ const Nav = React.createClass({
 
   onLogout(e) {
     e.preventDefault();
-    setCookie('username', null, 0, res => router.transitionTo('app.login'));
+    gapi.auth2.getAuthInstance().signOut().then(() => router.transitionTo('app.login'));
   }
 
 });

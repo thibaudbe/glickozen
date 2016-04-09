@@ -14,14 +14,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class Games @Inject() (implicit reactiveMongoApi: ReactiveMongoApi)
-  extends Controller with Security {
+  extends Controller {
 
   val logger = play.api.Logger("controllers.games")
 
   val gamesCollection: JSONCollection = reactiveMongoApi.db.collection[JSONCollection]("games")
   val ratingsCollection: JSONCollection = reactiveMongoApi.db.collection[JSONCollection]("ratings")
 
-  def addGame = LoggedUserAction().async(parse.json) { request =>
+  def addGame() = Action.async(parse.json) { request =>
 
     val jsonWithUUID = request.body.as[JsObject] + ("uuid" -> Json.toJson(UUID.randomUUID()))
 
@@ -40,19 +40,7 @@ class Games @Inject() (implicit reactiveMongoApi: ReactiveMongoApi)
     )
   }
 
-//  def getGames = LoggedUserAction().async {
-//    gamesCollection.find(Json.obj(
-//        "$or" -> Json.arr(
-//          Json.obj("player" -> player),
-//          Json.obj("opponent" -> player)
-//        )
-//      ))
-//      .cursor[Game]()
-//      .collect[Seq]()
-//      .map(games => Ok(Json.toJson(games)))
-//  }
-
-  def getPendingGames(player: String) = LoggedUserAction().async {
+  def getPendingGames(player: String) = Action.async {
     gamesCollection.find(
       Json.obj(
         "opponent" -> player,
@@ -79,7 +67,7 @@ class Games @Inject() (implicit reactiveMongoApi: ReactiveMongoApi)
     game <- gameOpt.map(Future.successful).getOrElse(Future.failed(new Exception(s"Game $uuid not found")))
   } yield game
 
-  def confirmGame = LoggedUserAction().async(parse.json) { request =>
+  def confirmGame = Action.async(parse.json) { request =>
     val uuid = (request.body \ "uuid").as[String]
     val confirmed = (request.body \ "confirmed").as[Boolean]
 
@@ -97,7 +85,7 @@ class Games @Inject() (implicit reactiveMongoApi: ReactiveMongoApi)
     }
   }
 
-  def getRankedPlayers(sport: String) = LoggedUserAction().async {
+  def getRankedPlayers(sport: String) = Action.async {
     ratingsCollection.find(Json.obj("sport" -> sport))
       .sort(Json.obj("rating" -> -1))
       .cursor[Ratings]()

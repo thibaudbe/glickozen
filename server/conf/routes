@@ -3,20 +3,14 @@
 # ~~~~
 
 # Home page
-GET         /                         controllers.Application.main
+GET         /                                             controllers.Application.main
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                                 controllers.Assets.versioned(path="/public", file: Asset)
 
-GET         /api/login                controllers.Application.auth
-POST        /api/login                controllers.Application.login
-
-POST        /api/games                controllers.Games.addGame
+POST        /api/games                                    controllers.Games.addGame
 # GET         /api/games                controllers.Games.getGames
-GET         /api/games/pending        controllers.Games.getPendingGames(player: String)
-PUT         /api/games/confirm        controllers.Games.confirmGame
+GET         /api/games/pending                            controllers.Games.getPendingGames(player: String)
+PUT         /api/games/confirm                            controllers.Games.confirmGame
 
-GET         /api/ratings              controllers.Games.getRankedPlayers(sport: String)
-
-GET         /caca                     controllers.Application.unauth
-GET         /api/getContacts          controllers.Application.getContacts
+GET         /api/ratings                                  controllers.Games.getRankedPlayers(sport: String)
