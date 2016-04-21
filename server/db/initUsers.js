@@ -1,0 +1,323 @@
+
+
+db.users.insert([{
+  "lastName": "Aubertin",
+  "firstName": "Anthony",
+  "email": "aau@zenexity.com"
+}, {
+  "lastName": "B",
+  "firstName": "Thibaud",
+  "email": "tbo@zenexity.com"
+}, {
+  "lastName": "B.",
+  "firstName": "Jean-Christophe",
+  "email": "jcb@zenexity.com"
+}, {
+  "lastName": "Bahassou",
+  "firstName": "Hamza",
+  "email": "hba@zenexity.com"
+}, {
+  "lastName": "Barbet",
+  "firstName": "Jérémy",
+  "email": "jbr@zengularity.com"
+}, {
+  "lastName": "Berezovskiy",
+  "firstName": "Egor",
+  "email": "ebe@zenexity.com"
+}, {
+  "lastName": "Bort",
+  "firstName": "Guillaume",
+  "email": "gbo@zenexity.com"
+}, {
+  "lastName": "boudjoudi",
+  "firstName": "franck",
+  "email": "fbo@zenexity.com"
+}, {
+  "lastName": "Boulle",
+  "firstName": "Jennifer",
+  "email": "jbo@zenexity.com"
+}, {
+  "lastName": "Bousnina",
+  "firstName": "Youssef",
+  "email": "ybo@zenexity.com"
+}, {
+  "lastName": "Bressand",
+  "firstName": "Renaud",
+  "email": "rbr@zenexity.com"
+}, {
+  "lastName": "Calmels",
+  "firstName": "Maxime",
+  "email": "mca@zenexity.com"
+}, {
+  "lastName": "Chantepie",
+  "firstName": "Cédric",
+  "email": "cch@zenexity.com"
+}, {
+  "lastName": "Chiadmi",
+  "firstName": "Saïd",
+  "email": "sci@zenexity.com"
+}, {
+  "lastName": "Couniot",
+  "firstName": "Sébastien",
+  "email": "sco@zenexity.com"
+}, {
+  "lastName": "Creme",
+  "firstName": "Sebastien",
+  "email": "scr@zenexity.com"
+}, {
+  "lastName": "Debergue",
+  "firstName": "Vincent",
+  "email": "vde@zenexity.com"
+}, {
+  "lastName": "Delalay",
+  "firstName": "Stéphane",
+  "email": "sde@zenexity.com"
+}, {
+  "lastName": "Dewitte",
+  "firstName": "Rémi",
+  "email": "rde@zenexity.com"
+}, {
+  "lastName": "Diep",
+  "firstName": "Deborah",
+  "email": "ddi@zenexity.com"
+}, {
+  "lastName": "Douy",
+  "firstName": "Victoire",
+  "email": "vdo@zenexity.com"
+}, {
+  "lastName": "Drobi",
+  "firstName": "Sadek",
+  "email": "sdr@zenexity.com"
+}, {
+  "lastName": "Eddemli",
+  "firstName": "El Mehdi",
+  "email": "eed@zenexity.com"
+}, {
+  "lastName": "Faye",
+  "firstName": "Aymeric",
+  "email": "afa@zenexity.com"
+}, {
+  "lastName": "Foucault",
+  "firstName": "Régis",
+  "email": "externe@zenexity.com"
+}, {
+  "lastName": "Galays",
+  "firstName": "Alexandre",
+  "email": "agl@zenexity.com"
+}, {
+  "lastName": "Gautré",
+  "firstName": "Maxime",
+  "email": "mga@zenexity.com"
+}, {
+  "lastName": "Giovannini",
+  "firstName": "Thomas",
+  "email": "tgi@zenexity.com"
+}, {
+  "lastName": "Grosjean",
+  "firstName": "Ewen",
+  "email": "egr@zenexity.com"
+}, {
+  "lastName": "Guergachi",
+  "firstName": "Habib",
+  "email": "hgu@zenexity.com"
+}, {
+  "lastName": "Guin",
+  "firstName": "Guillaume",
+  "email": "ggu@zenexity.com"
+}, {
+  "lastName": "Guyonvarch",
+  "firstName": "Joris",
+  "email": "jgu@zenexity.com"
+}, {
+  "lastName": "Hugot",
+  "firstName": "Olivier",
+  "email": "ohu@zenexity.com"
+}, {
+  "lastName": "Krzywicki",
+  "firstName": "Daniel",
+  "email": "dkr@zenexity.com"
+}, {
+  "lastName": "Lamellière",
+  "firstName": "Nathanaël",
+  "email": "nla@zenexity.com"
+}, {
+  "lastName": "Lautie",
+  "firstName": "Alban",
+  "email": "alt@zenexity.com"
+}, {
+  "lastName": "Le Guerneuve",
+  "firstName": "Alexandre",
+  "email": "agu@zenexity.com"
+}, {
+  "lastName": "Lebeau",
+  "firstName": "Pascal",
+  "email": "ple@zenexity.com"
+}, {
+  "lastName": "Leconte",
+  "firstName": "Bénédicte",
+  "email": "ble@zenexity.com"
+}, {
+  "lastName": "Lefèvre",
+  "firstName": "Olivier",
+  "email": "ole@zenexity.com"
+}, {
+  "lastName": "Lewis",
+  "firstName": "Arnaud",
+  "email": "alw@zenexity.com"
+}, {
+  "lastName": "Lillo",
+  "firstName": "Benjamin",
+  "email": "bli@zenexity.com"
+}, {
+  "lastName": "Loisant",
+  "firstName": "Erwan",
+  "email": "elo@zenexity.com"
+}, {
+  "lastName": "Lozach",
+  "firstName": "Steven",
+  "email": "slo@zenexity.com"
+}, {
+  "lastName": "Martin",
+  "firstName": "Benjamin",
+  "email": "bma@zenexity.com"
+}, {
+  "lastName": "Mathieu",
+  "firstName": "Yves",
+  "email": "yma@zenexity.com"
+}, {
+  "lastName": "Matoub",
+  "firstName": "Younes",
+  "email": "ymt@zenexity.com"
+}, {
+  "lastName": "Mazoyer",
+  "firstName": "Jean",
+  "email": "jma@zenexity.com"
+}, {
+  "lastName": "Michel",
+  "firstName": "Antoine",
+  "email": "ami@zenexity.com"
+}, {
+  "lastName": "Milleret",
+  "firstName": "Myriam",
+  "email": "mmi@zenexity.com"
+}, {
+  "lastName": "Mludek",
+  "firstName": "Denis",
+  "email": "dml@zenexity.com"
+}, {
+  "lastName": "Mohamed",
+  "firstName": "Nahir",
+  "email": "nmo@zenexity.com"
+}, {
+  "lastName": "Monnier",
+  "firstName": "Céline",
+  "email": "cmo@zenexity.com"
+}, {
+  "lastName": "Morelle",
+  "firstName": "Baptiste",
+  "email": "bmo@zenexity.com"
+}, {
+  "lastName": "Ngu",
+  "firstName": "Van",
+  "email": "vnv@zenexity.com"
+}, {
+  "lastName": "Orihuela",
+  "firstName": "Benoît",
+  "email": "bor@zenexity.com"
+}, {
+  "lastName": "Pak",
+  "firstName": "Anita",
+  "email": "apa@zenexity.com"
+}, {
+  "lastName": "Panserrieu",
+  "firstName": "Paul",
+  "email": "ppa@zenexity.com"
+}, {
+  "lastName": "Paris",
+  "firstName": "Vincent",
+  "email": "vpa@zenexity.com"
+}, {
+  "lastName": "Patat",
+  "firstName": "Patrick",
+  "email": "pat@zenexity.com"
+}, {
+  "lastName": "Poder",
+  "firstName": "Tony",
+  "email": "tpo@zenexity.com"
+}, {
+  "lastName": "Poux",
+  "firstName": "Jean-François",
+  "email": "jfp@zenexity.com"
+}, {
+  "lastName": "Renault",
+  "firstName": "Sébastien",
+  "email": "sre@zenexity.com"
+}, {
+  "lastName": "Richard-Foy",
+  "firstName": "Julien",
+  "email": "jrf@zenexity.com"
+}, {
+  "lastName": "Richard-Lacouture",
+  "firstName": "Mayleen",
+  "email": "mri@zenexity.com"
+}, {
+  "lastName": "Rottenberg",
+  "firstName": "Sam",
+  "email": "sro@zenexity.com"
+}, {
+  "lastName": "Rouville",
+  "firstName": "Benjamin",
+  "email": "bro@zenexity.com"
+}, {
+  "lastName": "Schetrite",
+  "firstName": "Yannick",
+  "email": "ysc@zenexity.com"
+}, {
+  "lastName": "Schneider",
+  "firstName": "Jérôme",
+  "email": "jsc@zenexity.com"
+}, {
+  "lastName": "SEHLI",
+  "firstName": "Nizar",
+  "email": "nse@zenexity.com"
+}, {
+  "lastName": "Shur",
+  "firstName": "Nadiya",
+  "email": "nsh@zenexity.com"
+}, {
+  "lastName": "Sidibé",
+  "firstName": "Oumar",
+  "email": "osi@zenexity.com"
+}, {
+  "lastName": "Tao",
+  "firstName": "Eric",
+  "email": "eto@zenexity.com"
+}, {
+  "lastName": "Taque",
+  "firstName": "Emilien",
+  "email": "eta@zenexity.com"
+}, {
+  "lastName": "Vallette d'Osia",
+  "firstName": "Étienne",
+  "email": "evo@zenexity.com"
+}, {
+  "lastName": "Velociter",
+  "firstName": "Vincent",
+  "email": "vve@zenexity.com"
+}, {
+  "lastName": "Venevongsos",
+  "firstName": "Christophe",
+  "email": "cve@zenexity.com"
+}, {
+  "lastName": "Wasmer",
+  "firstName": "Arnaud",
+  "email": "awa@zenexity.com"
+}, {
+  "lastName": "West",
+  "firstName": "Leonard",
+  "email": "lwe@zenexity.com"
+}, {
+  "lastName": "Yang",
+  "firstName": "Evelyne",
+  "email": "eya@zenexity.com"
+}]);

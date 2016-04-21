@@ -26,7 +26,6 @@ class Application @Inject()(
 
   def getContacts = Action.async { implicit request =>
     User.list().map { users =>
-      println(users)
       Ok(Json.obj("data" -> users))
     }
   }
